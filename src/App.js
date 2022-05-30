@@ -1,54 +1,59 @@
 import logo from './logo.svg';
 import './App.css';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import React from 'react'
+import { TransitionGroup } from 'react-transition-group';
+import { CSSTransition } from 'react-transition-group';
+
+
+
+
+
+
+
+
+
 
 
 
 
 export default function App() {
 
- const[todos, setToDos] = useState([
-   {text: 'Learn about react', isCompleted:false, removedAnimation:false},
-   {text: 'meat friend for lunch', isCompleted:false,removedAnimation:false},
-   {text: 'build really cool todo app', isCompleted:false,removedAnimation:false},
-   {text: 'fix this app', isCompleted:false,removedAnimation:false},
+  const [todos, setTodos] = useState([
+   {text: 'Learn about react', isCompleted:false,},
+   {text: 'meat friend for lunch', isCompleted:false,},
+   {text: 'build really cool todo app', isCompleted:false,},
+   {text: 'fix this app', isCompleted:false,},
  ])
 
 
 const addTodo = (text) =>{
-  const newTodos = [...todos,  {text}]       /* we copy what's already in that array and add another object, changing in it only text */
-  setToDos(newTodos) 
+  const newTodos = [...todos,  {text}]       /* we copy what's already in that array and add another object, which has only text parameter in it */
+  setTodos(newTodos) 
 }
 
 const completeTodo = (index) =>{
  let newTodos = [...todos];
  if(!newTodos[index].isCompleted){ newTodos[index].isCompleted = true;}
   else {newTodos[index].isCompleted = false;}
-  setToDos(newTodos)
+  setTodos(newTodos)
 }
 
-const removeTodo = (index)=>{
-  console.log("removeTodo")
-  let newTodos = [...todos];
-  newTodos.splice(index,1);
-  setToDos(newTodos)
-}
+const removeTodo = (index)=>{  
+    let newTodos = [...todos];
+    newTodos.splice(index,1);
+    setTodos(newTodos)
+  }
 
 const changeATodo = (index, newValue)=>{
 if(!newValue){return}
 else{
   let newTodos = [...todos];
 newTodos[index].text = newValue;
-setToDos(newTodos)
+setTodos(newTodos)
 }
 }
 
-const removeTodoAnimation = (index)=>{
-  let newTodos = [...todos];
-  newTodos[index].removedAnimation = !newTodos[index].removedAnimation;
-  setToDos(newTodos)
-}
 
 
   return (
@@ -56,40 +61,45 @@ const removeTodoAnimation = (index)=>{
 <div className = "todo-list">
 <ToDoForm addTodo = {addTodo} /> {/*   we pass the function to update todo state */}
 
-{todos.map((todo, index)=>{return(<Todo 
-key={index} index={index} shouldAnimate = {todo.removedAnimation}
+
+<TransitionGroup component = "div">
+
+{todos.map( (todo, index)=>(
+  
+<CSSTransition key = {todo.text} timeout={700} classNames = "item">
+
+ <Todo key={index} index={index} 
 todo={todo} completeTodo = {completeTodo}
- removeTodo={removeTodo}   changeATodo={changeATodo} 
-  removeTodoAnimation={removeTodoAnimation}  />)})}
+ removeTodo={removeTodo}   changeATodo={changeATodo}  />    
+  
+  </CSSTransition>
+       ))}
+
+</TransitionGroup>
 
 </div>
-
-
     </div>
   );
 }
 
 
 
-
-
-function Todo ({todo, index, shouldAnimate, completeTodo, removeTodo, changeATodo, removeTodoAnimation}){ /* we used destructuring here (it means if we receive in the object some parameters like those names we specified in curvey braces - we create athe variables and assign to them those parameters )*/
+function Todo ({todo, index, completeTodo, removeTodo, changeATodo,}){ /* we used destructuring here (it means if we receive in the object some parameters like those names we specified in curvey braces - we create athe variables and assign to them those parameters )*/
 
 let [modifyMode, setModifyMode] = useState(false)
 let [inputValue, setInputValue] = useState(todo.text)
 /* let [removed, setRemoved] = useState(false) */
 
+let contentStyle={
+  textDecoration:"line-through",
+  opacity:0,
+}
 
-console.log(`${index} ${shouldAnimate}`)
-
-
-//console.log(`todo rerendered  ${removed}  ${index} `)
 
   return(
-    <div className = "todoItem"   onTransitionEnd={()=>{ console.log("Transition"); removeTodo(index)}} style={{textDecoration: todo.isCompleted ? "line-through":"",
-    /* opacity: shouldAnimate? "0" : null, */
-    transform: shouldAnimate? "translateY(8rem) rotateZ(25deg)" : null,
-    }}> 
+/*     {textDecoration: todo.isCompleted ? "line-through":"",} */
+    
+    <div className = "todoItem"  style={{style : todo.isCompleted ? contentStyle : ""}}> 
     
  <div className="todoItemText"  onDoubleClick={()=>{setModifyMode(true)}} >
 
@@ -100,10 +110,11 @@ console.log(`${index} ${shouldAnimate}`)
  </div> 
   <div className="redactorButtons">
    <div> <button className="complete" onClick = {()=>{completeTodo(index)}} > <img  src="https://www.svgrepo.com/show/347693/check-circle.svg" /> </button></div>
-   <div><button className="remove" onClick = {()=>{removeTodoAnimation(index)}} >  <img src = "https://cdn.iconscout.com/icon/free/png-256/delete-737-475058.png"/> </button></div>
+   <div><button className="remove" onClick = {()=>{removeTodo(index)}} >  <img src = "https://cdn.iconscout.com/icon/free/png-256/delete-737-475058.png"/> </button></div>
    </div>
    
     </div>
+    
   )
 
 }
