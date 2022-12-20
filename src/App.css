@@ -30,161 +30,9 @@ body{
   overflow-y: auto;
 }
 
-.todoItem {
-  align-items: center;
-  background: #fff;
-  border-radius: 3px;
-  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.349);
-  justify-content: space-between;
-  margin-bottom: 6px;
-  padding: 3px 0px 3px 10px;
-  display:flex;
-  align-items: flex-start;
-  /*  transition: all 0.6s ease; */ 
-}
 
 
-
-
-
-
-
-
-
-/*  .fall {
-  transform: translateY(8rem) rotateZ(25deg);
-   opacity: 0; 
-}  */
-
-
-form{
-display:flex;
-justify-content: space-between;
-margin-bottom: 6px;
-border-radius:3px;
-padding:3px;
-background: black; 
-}
-
-form .buttonPlus{
-  width:50px;
-  height:50px;
-margin-left: auto;
-border: none;
-outline: none;
-background-color: rgb(253, 253, 253);
-background: rgb(255, 255, 255); 
-border-radius:5px;
-}
-
-.buttonPlus{
-  cursor: pointer;
- width:34px;
-}
-
-.buttonPlus img{
-  width:100%;
- }
-
-
-form input{
-  width:100%;
-  border: none;
-  outline: none;
-  margin-right:5px;
-  font-size: 24px;
-  background: black; 
-color:white;
-padding:0px 5px;
-}
-
-
-
-
-
-
-
-select{
-  appearance: none;
-  outline: 0;
-  padding:0.5rem;
-  font-family: "Poppins", sans-serif;
-  font-weight: 500;
-  font-size: 20px;
-  cursor: pointer;
-margin-left: 5px;
-border-radius:3px;
-background: black; 
-color:white;
-} 
-
-
-.select {
-  position: relative;
-
-}
-
-
-.select::after {
-  content: "\25BC";
-  font-size: 1rem;
-  position: absolute;
-  top: 0;
-  right: 0px;
-  padding: .6rem;
-  color: white;
-  cursor: pointer;
-  pointer-events: none;
-}
-
-
-
-
-.todoItemText{
-  max-width:360px;
-  cursor: pointer;
-}
-
-.redactorButtons{
-  align-self: flex-start;
-}
-
-.redactorButtons div{
-  cursor: pointer;
-display:inline-block;
-margin:0 5px;
-}
-
-.redactorButtons div button{
-  cursor: pointer;
-  width:34px;
-  cursor: pointer;
-  border: none;
-outline: none;
-background-color: rgb(253, 253, 253);
-}
-
-.complete:hover{
-  background-color: rgb(73, 203, 73);
-  border-radius: 5px;
-}
-
-.remove:hover{
-  background-color: rgb(236, 105, 53);
-  border-radius: 5px;
-}
-
-
-.redactorButtons div button img{
-  width:100%;
- }
-
-
-
-
-
-
- @media only screen and (max-width: 500px) {
+@media only screen and (max-width: 500px) {
   .app{
     padding:0px;
   }
@@ -194,13 +42,7 @@ background-color: rgb(253, 253, 253);
   }
   }
 
-
-
- 
-
-
-
-
+  
   .item-exit-active {
     opacity: 0;
     transform:translateY(8rem) rotateZ(25deg);
